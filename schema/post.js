@@ -17,3 +17,4 @@ const postsSchema = new Schema({
   "thread_key": {type: String, required: true }
 });
 
+module.exports = postsSchema;
