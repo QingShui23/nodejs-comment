@@ -12,7 +12,7 @@ app.use(bodyParser());
 // post
 router.post('/post', routes.post);
 // delete
-router.delete('/delete', routes.delete);
+router.delete('/delete', routes.remove);
 // alter
 router.post('/alter', routes.alter);
 // list
@@ -24,4 +24,5 @@ if( process.env.NODE_ENV === 'production' )
   app.use(logger());
 
 app.listen(3000);
+
 console.log('server started !'.green);

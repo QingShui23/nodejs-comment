@@ -1,32 +1,28 @@
 const post = require('../controllers/post.js');
+const remove = require('../controllers/remove.js');
+const alter = require('../controllers/alter.js');
+const lists = require('../controllers/lists.js');
 
-module.exports = {
-  'post': async (ctx, next) => {
-    // let params = ctx.request.body;
-    let params = {
-      "post_id": 12138,
-      "thread_id": 12138,
-      "message": "呵呵",
-      "ip": "12138",
-      "likes": 12138,
-      "parents": [12138],
-      "author_id": 12138,
-      "author_email": "wuchengkai0@gmail.com",
-      "author_name": "ckwu",
-      "author_url": "demo0.xyz",
-      "thread_key": "demo0.xyz"
-    };
-    await post( params, ctx );
-    next();
-  },
-  'delete': async (ctx, next) => {
+exports.post = async (ctx, next) => {
+  let params = ctx.request.body;
+  await post( params, ctx );
+  next();
+}
 
-  },
-  'alter': async (ctx, next) => {
+exports.remove = async (ctx, next) => {
+  let params = ctx.request.body;
+  await remove( params, ctx );
+  next();
+}
+exports.alter = async (ctx, next) => {
+  let params = ctx.request.body;
+  await alter( params, ctx );
+  next();
+}
+exports.lists = async (ctx, next) => {
+  let params = ctx.request.body;
+  await lists( params, ctx );
+  next();
+}
 
-  },
-  'lists': async (ctx, next) => {
-
-  }
-};
 
