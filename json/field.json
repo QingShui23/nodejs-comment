@@ -7,8 +7,7 @@
     "likes": "点赞",
     "thread_key": "一般是文章的PATH",
     "title": "文章名称",
-    "url": "文章URL",
-    "": "",
+    "url": "文章URL"
   }],
   "posts": [{
     "post_id": "评论ID",
@@ -19,6 +18,7 @@
     "ip": "发表的IP",
     "likes": "点赞",
     "parents": ["评论父级"],
+    "avatar_url": "头像URL",
     "author_id": "用户ID",
     "author_email": "用户邮箱",
     "author_name": "用户名称",

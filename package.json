@@ -9,10 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "colors": "^1.1.2",
+    "koa-body": "^1.6.0",
+    "koa-bodyparser": "^4.2.0",
     "koa-csrf": "^3.0.5",
     "koa-error": "^3.0.0",
     "koa-logger": "^2.0.1",
     "koa-router": "^7.0.1",
-    "mongodb": "^2.2.25"
+    "mongodb": "^2.2.25",
+    "mongoose": "^4.9.2"
   }
 }

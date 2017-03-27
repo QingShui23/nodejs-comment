@@ -1,0 +1,49 @@
+
+一、发布
+
+  POST、post
+
+  {
+    "message": "评论内容",
+    "parents": ["评论父级"],
+    "author_email": "用户邮箱",
+    "author_name": "用户名称",
+    "author_url": "用户主页",
+    "thread_key": "一般是文章的PATH"
+  }
+
+二、删除
+
+  DELETE、delete
+
+  {
+    "post_id": "评论ID",
+    "author_email": "用户邮箱",
+    "author_name": "用户名称",
+    "author_url": "用户主页",
+    "thread_key": "一般是文章的PATH"
+  }
+
+三、修改
+
+  POST、alter
+
+  {
+    "post_id": "评论ID",
+    "message": "评论内容",
+    "author_email": "用户邮箱",
+    "author_name": "用户名称",
+    "author_url": "用户主页",
+    "thread_key": "一般是文章的PATH"
+  }
+
+四、查询所有
+  
+  GET、list
+
+  {
+    "thread_key": "一般是文章的PATH",
+    "title": "文章名称",
+    "url": "文章URL"
+  }
+
