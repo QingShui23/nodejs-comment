@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const postsSchema = new Schema({
-  // "thread_id": {type: String, required: true },
   "post_id": {type: String, required: true },
   "message": {type: String, required: true },
   "created_at": {type: Date, required: true, default: Date.now() },
