@@ -4,7 +4,7 @@ exports.success = (code = 200, url = '', data = {}) => {
   return { code: code, url: url, data: data };
 }
 
-exports.fail = (code = 403, reason = '', url = '', data = {}) => {
-  return { code: code, reason: reason, url: url, data: data };
+exports.fail = (code = 403, reason = '', url = '') => {
+  return { code: code, reason: reason, url: url };
 }
 

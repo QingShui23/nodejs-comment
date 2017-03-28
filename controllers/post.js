@@ -8,6 +8,9 @@ module.exports = ( params, ctx ) => {
     entity.save().then((doc) => {
       ctx.body = result.success( doc );
       resolve();
+    }).catch((err)=>{
+      ctx.body = result.fail(500, err.message.message, '');
+      resolve();
     });
   });
 };
