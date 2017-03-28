@@ -14,11 +14,13 @@ exports.remove = async (ctx, next) => {
   await remove( params, ctx );
   next();
 }
+
 exports.alter = async (ctx, next) => {
   let params = ctx.request.body;
   await alter( params, ctx );
   next();
 }
+
 exports.lists = async (ctx, next) => {
   let params = ctx.request.body;
   await lists( params, ctx );

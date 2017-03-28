@@ -21,6 +21,9 @@
     "koa-router": "^7.0.1",
     "mongodb": "^2.2.25",
     "mongoose": "^4.9.2",
-    "validator": "^7.0.0"
+    "underscore": "^1.8.3",
+    "uuid": "^3.0.1",
+    "validator": "^7.0.0",
+    "xss-filters": "^1.2.7"
   }
 }
