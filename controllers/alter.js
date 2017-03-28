@@ -6,7 +6,7 @@ const _ = require('underscore');
 
 module.exports = async ( params, ctx ) => {
   if( _.isEmpty( params ) ) 
-    resolve( ctx.body = result.fail(500, '\u7F3A\u5C11\u53C2\u6570', '') );
+    return ctx.body = result.fail(500, '\u7F3A\u5C11\u53C2\u6570', '');
   let query = {post_id: params.post_id};
   params.message = xssFilters.inHTMLData( params.message );
   let doc = await PostsModel.findOneAndUpdate(query, {message: params.message}, {});
