@@ -9,7 +9,7 @@ module.exports = async ( params, ctx ) => {
     return ctx.body = result.fail(500, '\u7F3A\u5C11\u53C2\u6570', '');
   let query = {post_id: params.post_id};
   params.message = xssFilters.inHTMLData( params.message );
-  let doc = await PostsModel.findOneAndUpdate(query, {message: params.message}, {});
+  let doc = await PostsModel.findOneAndUpdate(query, {message: params.message, updated_at: Date.now()}, {});
   if( doc === null ) return ctx.body = result.fail(404, '\u5185\u5BB9\u4E0D\u5B58\u5728', '');
   ctx.body = result.success( doc );
 };

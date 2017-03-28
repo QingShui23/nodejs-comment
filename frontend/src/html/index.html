@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.wuchengkai.com/assets/css/amazeui.min.css?v=841af4619b">
+  <style>
+    .timeline-comment-wrapper {
+      position: relative;
+      padding-left: 60px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      margin-left: 1rem;
+      margin-right: 1rem;
+      border-top: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+    }
+    .timeline-comment-wrapper p {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .timeline-comment-avatar {
+      width: 44px;
+      height: 44px;
+      float: left;
+      margin-left: -60px;
+      border-radius: 3px;
+    }
+    .comment {
+      position: relative;
+      background-color: #fff;
+      border: 1px solid #d1d5da;
+      border-radius: 3px;
+    }
+    .comment::before,.comment::after {
+      position: absolute;
+      top: 11px;
+      right: 100%;
+      left: -16px;
+      display: block;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+      content: " ";
+      border-color: transparent;
+      border-style: solid solid outset;
+      border-width: 8px;
+    }
+    .comment::before {
+      border-right-color: #d1d5da;
+    }
+    .comment::after {
+      margin-top: 1px;
+      margin-left: 2px;
+      border-width: 7px;
+      border-right-color: #f6f8fa;
+    }
+    .timeline-comment-header {
+      padding-right: 15px;
+      padding-left: 15px;
+      color: #586069;
+      background-color: #f6f8fa;
+      border-bottom: 1px solid #d1d5da;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+    }
+    .timeline-comment-header-text {
+      max-width: 78%;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 0.7rem;
+    }
+    .d-block {
+      display: block !important;
+    }
+    .comment-body {
+      width: 100%;
+      padding: 15px;
+      overflow: visible;
+      word-break: break-all;
+      font-size: 1.3rem;
+    }
+    .timeline-comment-avatar-m {
+      display: none;
+    }
+
+    @media screen and (max-width: 500px) {
+      .comment::before, .comment::after {
+        content: none;
+      }
+      .timeline-comment-wrapper>a:first-of-type {
+        display: none;
+      }
+      .timeline-comment-wrapper {
+        padding-left: 0;
+      }
+      .timeline-comment-header-text {
+        max-width: 100%;
+      }
+      .timeline-comment-avatar-m {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+        width: 33px;
+        height: 33px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="timeline-comment-wrapper">
+    <a href="/nimojs">
+      <img alt="@nimojs" class="timeline-comment-avatar" src="https://o77qb5l10.qnssl.com/eafc0f47-d7d2-49b2-b53d-54866c07b962.jpg" >
+    </a>
+    <div class="comment">
+      <div class="timeline-comment-header">
+        <div class="timeline-comment-header-text">
+          <img alt="@nimojs" class="timeline-comment-avatar-m" src="https://o77qb5l10.qnssl.com/eafc0f47-d7d2-49b2-b53d-54866c07b962.jpg" >
+          <strong>nimojs</strong> 发表于 on 10 Nov 2015
+        </div>
+      </div>
+      <div class="edit-comment-hide">
+        <table class="d-block">
+          <tbody class="d-block">
+            <tr class="d-block">
+              <td class="d-block comment-body markdown-body markdown-format js-comment-body">
+                  <p>这里的所有留言都会在 <a href="http://nimojs.github.io/github-comments/">http://nimojs.github.io/github-comments/</a> 显示</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

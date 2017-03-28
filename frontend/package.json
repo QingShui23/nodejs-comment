@@ -1,0 +1,30 @@
+{
+  "name": "gulp-demo",
+  "version": "1.0.0",
+  "description": "* Gulp 代码构建工具, 依赖模块与实现的功能",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Army-U/gulp-demo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Army-U/gulp-demo/issues"
+  },
+  "homepage": "https://github.com/Army-U/gulp-demo#readme",
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-clean-css": "^2.0.7",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rev": "^7.0.0",
+    "gulp-rev-collector": "^1.0.3",
+    "gulp-uglify": "^1.5.3",
+    "gulp-notify": "^2.2.0"
+  }
+}

@@ -8,7 +8,7 @@ mongoose.connect( config.db_url );
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', () => {
-  console.log('we\'re connected!'.bgGreen);
+  console.log('we\'re connected!'.green);
 });
 
 module.exports = db;
