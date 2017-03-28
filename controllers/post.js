@@ -10,6 +10,7 @@ const config = require('../config/index.js').email;
 const deliveryCommentReplyEmail = async ( doc, db ) => {
   if( doc.parents.length === 0 ) return;
   let user = await db.findOne({author_id: doc.parents[0]});
+  if( user === null ) return;
   let email_res = await email({
     subject: `${doc.author_name} 回复了您在 wuchengkai.com 上的评论`,
     text: `${doc.message}\n\n\t 您可以点此链接 ${config.base}${doc.thread_key} 进行查看`,
