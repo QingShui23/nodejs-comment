@@ -27,7 +27,7 @@ module.exports = new Vue({
   computed: {
     comments: function() {
       return this.comments_data.map((v, i) => {
-        v.author_avatar = v.author_avatar || '';
+        v.author_avatar = v.author_avatar || 'https://fe.ele.me/content/images/2016/12/6f061d950a7b0208c56357fe65d9f2d3572cc803.jpeg';
         v.created_at = utils.convertTimestamp2Date( v.created_at );
         return v;
       });
@@ -35,7 +35,10 @@ module.exports = new Vue({
   },
   methods: {
     post: function(){
-      console.log( this.reply );
+      this.reply.created_at = Date.now();
+      this.reply.updated_at = Date.now();
+      this.comments_data.push( JSON.parse(JSON.stringify(this.reply)) );
+      setTimeout(() => { this.reply.message = ''; }, 0);
     }
   }
 });

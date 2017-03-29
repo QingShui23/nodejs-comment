@@ -43,7 +43,7 @@ module.exports = new Vue({
   computed: {
     comments: function comments() {
       return this.comments_data.map(function (v, i) {
-        v.author_avatar = v.author_avatar || '';
+        v.author_avatar = v.author_avatar || 'https://fe.ele.me/content/images/2016/12/6f061d950a7b0208c56357fe65d9f2d3572cc803.jpeg';
         v.created_at = _utils2.default.convertTimestamp2Date(v.created_at);
         return v;
       });
@@ -51,7 +51,14 @@ module.exports = new Vue({
   },
   methods: {
     post: function post() {
-      console.log(this.reply);
+      var _this = this;
+
+      this.reply.created_at = Date.now();
+      this.reply.updated_at = Date.now();
+      this.comments_data.push(JSON.parse(JSON.stringify(this.reply)));
+      setTimeout(function () {
+        _this.reply.message = '';
+      }, 0);
     }
   }
 });
