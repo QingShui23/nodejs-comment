@@ -6,13 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.wuchengkai.com/assets/css/amazeui.min.css?v=841af4619b">
   <style>
+    .comment-widget {
+      position: relative;
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
     .timeline-comment-wrapper {
       position: relative;
       padding-left: 60px;
       margin-top: 15px;
       margin-bottom: 15px;
-      margin-left: 1rem;
-      margin-right: 1rem;
       border-top: 2px solid #fff;
       border-bottom: 2px solid #fff;
     }
@@ -84,6 +87,102 @@
     .timeline-comment-avatar-m {
       display: none;
     }
+    .replybox {
+      width: auto;
+      font-size: 12px;
+      z-index: 3;
+      margin: 8px 0;
+      padding: 0 0 0 60px;
+      position: relative;
+    }
+    .replybox>a:first-of-type {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .replybox>a:first-of-type img {
+      width: 50px;
+      height: 50px;
+      visibility: visible;
+      margin: 0;
+      display: block;
+      width: 50px;
+      height: 50px;
+      max-width: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.22);
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+    }
+    .textarea-wrapper {
+      position: relative;
+      border: 1px solid #ccc;
+      border-bottom: none;
+      
+      overflow: hidden;
+      border-top-right-radius: 3px;
+      border-top-left-radius: 3px;
+    }
+    .textarea-wrapper textarea {
+      box-shadow: none;
+      -webkit-appearance: none;
+      overflow: auto;
+      padding: 10px;
+      height: 54px;
+      margin: 0;
+      resize: none;
+      color: #999;
+      width: 100%;
+      display: block;
+      background: #fff url(https://oiffqaiyz.qnssl.com/19c8e06f-3eb2-7978-b6d8-1bac037a1dbc.png) 0 -90px repeat-x;
+      font-size: 13px;
+      line-height: 20px;
+      border: none;
+      outline: none;
+    }
+    .post-toolbar {
+      position: relative;
+      width: 100%;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.6);
+    }
+    .post-options {
+      position: relative;
+      margin-right: 100px;
+      height: 30px;
+      border: 1px solid #ccc;
+      border-right: none;
+      border-bottom-color: #aaa;
+      border-bottom-left-radius: 3px;
+      -webkit-border-bottom-left-radius: 3px;
+      background: url(https://oiffqaiyz.qnssl.com/19c8e06f-3eb2-7978-b6d8-1bac037a1dbc.png) 0 -60px repeat-x;
+    }
+    .post-button {
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 30px;
+      width: 100px;
+      text-align: center;
+      text-shadow: 0 1px 0 #fff;
+      color: #555;
+      font-size: 14px;
+      font-weight: bold;
+      border: 1px solid #ccc;
+      border-bottom-color: #aaa;
+      border-bottom-right-radius: 3px;
+      -webkit-border-bottom-right-radius: 3px;
+      background-color: #e6e6e6;
+      background-repeat: no-repeat;
+      background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fcfcfc), color-stop(25%, #fcfcfc), to(#e6e6e6));
+      background-image: -webkit-linear-gradient(#fcfcfc, #fcfcfc 25%, #e6e6e6);
+      background-image: -moz-linear-gradient(top, #fcfcfc, #fcfcfc 25%, #e6e6e6);
+      background-image: -ms-linear-gradient(#fcfcfc, #fcfcfc 25%, #e6e6e6);
+      background-image: linear-gradient(#fcfcfc, #fcfcfc 25%, #e6e6e6);
+      -webkit-transition: all .15s linear;
+      -moz-transition: all .15s linear;
+      transition: all .15s linear;
+      box-shadow: inset 0 0 1px #fff;
+    }
 
     @media screen and (max-width: 500px) {
       .comment::before, .comment::after {
@@ -109,29 +208,70 @@
   </style>
 </head>
 <body>
-  <div class="timeline-comment-wrapper">
-    <a href="/nimojs">
-      <img alt="@nimojs" class="timeline-comment-avatar" src="https://o77qb5l10.qnssl.com/eafc0f47-d7d2-49b2-b53d-54866c07b962.jpg" >
-    </a>
-    <div class="comment">
-      <div class="timeline-comment-header">
-        <div class="timeline-comment-header-text">
-          <img alt="@nimojs" class="timeline-comment-avatar-m" src="https://o77qb5l10.qnssl.com/eafc0f47-d7d2-49b2-b53d-54866c07b962.jpg" >
-          <strong>nimojs</strong> 发表于 on 10 Nov 2015
+  
+  <div class="comment-widget">
+    <div class="timeline-comment-wrapper" v-for="(v, i) in comments">
+      <a :href="v.author_url">
+        <img alt="" class="timeline-comment-avatar" :src="v.author_avatar">
+      </a>
+      <div class="comment">
+        <div class="timeline-comment-header">
+          <div class="timeline-comment-header-text">
+            <img alt="" class="timeline-comment-avatar-m" :src="v.author_avatar">
+            <strong v-text="v.author_name"></strong> 发表于 <time v-text="v.created_at"></time>
+          </div>
+        </div>
+        <div class="edit-comment-hide">
+          <table class="d-block">
+            <tbody class="d-block">
+              <tr class="d-block">
+                <td class="d-block comment-body markdown-body markdown-format js-comment-body">
+                  <p v-text="v.message"></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="edit-comment-hide">
-        <table class="d-block">
-          <tbody class="d-block">
-            <tr class="d-block">
-              <td class="d-block comment-body markdown-body markdown-format js-comment-body">
-                  <p>这里的所有留言都会在 <a href="http://nimojs.github.io/github-comments/">http://nimojs.github.io/github-comments/</a> 显示</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    </div>
+
+    <div class="replybox">
+      <a href="">
+        <img src="http://q.qlogo.cn/qqapp/100229475/B5CA91B39BA23ABE80C306B5AD25FB04/100" alt="NEIL">
+      </a>
+      <form action="">
+        <div class="textarea-wrapper">
+          <textarea name="" placeholder="说点什么吧…"></textarea>
+        </div>
+        <div class="post-toolbar">
+          <div class="post-options">
+          </div>
+          <button class="post-button" type="submit">发布</button>
+        </div>
+      </form>
     </div>
   </div>
+
+  <script src="https://cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
+  <script>
+
+
+    new Vue({
+      el: '.comment-widget',
+      data: {
+        comments: [{
+          author_url: 'wuchengkai.com',
+          author_id: '25607593-63d5-46f3-81aa-7154cd0d24c0',
+          author_avatar: 'http://ww1.sinaimg.cn/large/0060lm7Tgy1fe2pa9gadaj30zk0nr0xz.jpg',
+          author_name: '张三',
+          message: '测试',
+          post_id: '2efd3696-31ef-496a-bb28-62a33b52eb00',
+          parents: ['52b489e9-e9be-4582-b58f-414e1927d6bd'],
+          created_at: '2017-03-28T07:20:32.008Z',
+          updated_at: '2017-03-28T07:20:32.008Z'
+        }]
+      }
+    })
+  </script>
 </body>
 </html>
