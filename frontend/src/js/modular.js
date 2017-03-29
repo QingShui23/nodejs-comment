@@ -1,7 +1,9 @@
+import utils from './utils.js';
+
 module.exports = new Vue({
   el: '.comment-widget',
   data: {
-    comments: [{
+    comments_data: [{
       author_url: 'wuchengkai.com',
       author_avatar: 'http://q.qlogo.cn/qqapp/100229475/B5CA91B39BA23ABE80C306B5AD25FB04/100',
       author_name: 'ckwu',
@@ -13,6 +15,27 @@ module.exports = new Vue({
       author_id : '25607593-63d5-46f3-81aa-7154cd0d24c0',
       thread_key : 'canvas-poster',
       parents: ['52b489e9-e9be-4582-b58f-414e1927d6bd']
-    }]
+    }],
+    reply: {
+      message: '',
+      author_name: '',
+      author_url: '',
+      thread_key: '',
+      author_avatar: ''
+    }
+  },
+  computed: {
+    comments: function() {
+      return this.comments_data.map((v, i) => {
+        v.author_avatar = v.author_avatar || '';
+        v.created_at = utils.convertTimestamp2Date( v.created_at );
+        return v;
+      });
+    }
+  },
+  methods: {
+    post: function(){
+      console.log( this.reply );
+    }
   }
 });

@@ -211,9 +211,10 @@
   
   <div class="comment-widget">
     <div class="timeline-comment-wrapper" v-for="(v, i) in comments">
-      <a :href="v.author_url">
+      <a :href="v.author_url" v-if="v.author_url.length > 0">
         <img alt="" class="timeline-comment-avatar" :src="v.author_avatar">
       </a>
+      <img alt="" class="timeline-comment-avatar" :src="v.author_avatar" v-else>
       <div class="comment">
         <div class="timeline-comment-header">
           <div class="timeline-comment-header-text">
@@ -239,9 +240,9 @@
       <a href="">
         <img src="http://q.qlogo.cn/qqapp/100229475/B5CA91B39BA23ABE80C306B5AD25FB04/100" alt="NEIL">
       </a>
-      <form action="">
+      <form v-on:submit.prevent="post">
         <div class="textarea-wrapper">
-          <textarea name="" placeholder="说点什么吧…"></textarea>
+          <textarea required="" v-model.trim="reply.message" placeholder="说点什么吧…"></textarea>
         </div>
         <div class="post-toolbar">
           <div class="post-options">
