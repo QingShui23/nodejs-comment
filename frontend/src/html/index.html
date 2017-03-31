@@ -242,7 +242,7 @@
       </a>
       <form v-on:submit.prevent="post">
         <div class="textarea-wrapper">
-          <textarea required="" v-model.trim="reply.message" placeholder="说点什么吧…"></textarea>
+          <textarea required="" v-model.trim="reply.message" @keyup.enter.ctrl="post" placeholder="说点什么吧…"></textarea>
         </div>
         <div class="post-toolbar">
           <div class="post-options">
