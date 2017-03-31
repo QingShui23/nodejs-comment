@@ -5,9 +5,15 @@ var _modular = require('./modular.js');
 
 var _modular2 = _interopRequireDefault(_modular);
 
+var _request = require('./request.js');
+
+var _request2 = _interopRequireDefault(_request);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./modular.js":2}],2:[function(require,module,exports){
+_request2.default.lists();
+
+},{"./modular.js":2,"./request.js":3}],2:[function(require,module,exports){
 'use strict';
 
 var _utils = require('./utils.js');
@@ -63,7 +69,20 @@ module.exports = new Vue({
   }
 });
 
-},{"./utils.js":3}],3:[function(require,module,exports){
+},{"./utils.js":4}],3:[function(require,module,exports){
+'use strict';
+
+module.exports = {
+	lists: function lists() {
+		fetch('http://127.0.0.1:3000/lists', { method: 'POST' }).then(function (res) {
+			return res.json();
+		}).then(function (data) {
+			console.log(data);
+		});
+	}
+};
+
+},{}],4:[function(require,module,exports){
 'use strict';
 
 module.exports = {

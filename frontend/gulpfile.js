@@ -17,16 +17,21 @@ browserify = require('browserify'),
 source = require('vinyl-source-stream');
 
 
-/**
- * 模块加载
-*/ 
-gulp.task('module', () => {
+let pack = () => {
+  console.log(`packing`);
   return browserify('src/js/entry.js')
     .transform('babelify', {presets: ['es2015']})
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(gulp.dest('src/js/'));
-});
+};
+
+/**
+ * 模块加载
+*/ 
+gulp.task('module', pack);
+
+gulp.watch('src/js/*.js', pack);
 
 /**
  * 压缩 CSS

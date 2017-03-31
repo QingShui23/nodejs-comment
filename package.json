@@ -27,6 +27,7 @@
     "xss-filters": "^1.2.7"
   },
   "devDependencies": {
-    "koa": "^2.2.0"
+    "koa": "^2.2.0",
+    "koa-cors": "^0.0.16"
   }
 }

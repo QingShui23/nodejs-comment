@@ -8,9 +8,11 @@ const colors = require('colors');
 const cookies = require('koa-cookie');
 const emailjs = require('emailjs');
 const routes = require('./routes/index.js');
+const cors = require('koa-cors');
 
 require('./routes/entry.js')(router, routes);
 
+app.use(cors());
 app.use(bodyParser());
 app.use(router.routes());
 
