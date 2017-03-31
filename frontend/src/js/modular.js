@@ -1,27 +1,31 @@
 import utils from './utils.js';
+import request from './request.js';
 
-module.exports = new Vue({
+const main = new Vue({
   el: '.comment-widget',
   data: {
     comments_data: [{
-      author_url: 'wuchengkai.com',
-      author_avatar: 'http://q.qlogo.cn/qqapp/100229475/B5CA91B39BA23ABE80C306B5AD25FB04/100',
-      author_name: 'ckwu',
-      created_at: '2017-03-28T07:20:32.008Z',
-      updated_at: '2017-03-28T07:20:32.008Z',
-      message: '测试',
-      author_email: '486433545@qq.com',
-      post_id : '2efd3696-31ef-496a-bb28-62a33b52eb00',
-      author_id : '25607593-63d5-46f3-81aa-7154cd0d24c0',
-      thread_key : 'canvas-poster',
-      parents: ['52b489e9-e9be-4582-b58f-414e1927d6bd']
+      "_id": "58de82c1f9e12c0614ef416f",
+      "message": "1",
+      "author_name": "wck",
+      "thread_key": "canvas",
+      "author_email": "486433545@qq.com",
+      "post_id": "88d97e4b-373c-422f-9e6d-1f7071d04d48",
+      "author_id": "4ba97974-0c1b-44ed-8921-1c707dc5ba16",
+      "__v": 0,
+      "author_url": "",
+      "parents": [],
+      "ip": "::ffff:127.0.0.1",
+      "updated_at": "2017-03-31T16:20:24.664Z",
+      "created_at": "2017-03-31T16:20:24.664Z"
     }],
     reply: {
       message: '',
-      author_name: '',
+      author_name: 'wck',
       author_url: '',
-      thread_key: '',
-      author_avatar: ''
+      thread_key: 'canvas',
+      author_avatar: '',
+      author_email: '486433545@qq.com'
     }
   },
   computed: {
@@ -35,10 +39,14 @@ module.exports = new Vue({
   },
   methods: {
     post: function(){
-      this.reply.created_at = Date.now();
-      this.reply.updated_at = Date.now();
-      this.comments_data.push( JSON.parse(JSON.stringify(this.reply)) );
-      setTimeout(() => { this.reply.message = ''; }, 0);
+      request.post(this.reply, (res) => {
+        console.log( res );
+        setTimeout(() => { this.reply.message = ''; request.lists(); }, 0);
+      })
     }
   }
 });
+
+self.main = main;
+
+module.exports = main;

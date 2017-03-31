@@ -12,7 +12,7 @@ const postsSchema = new Schema({
   "author_id": {type: String, required: true },
   "author_email": {type: String, required: true },
   "author_name": {type: String, required: true },
-  "author_url": {type: String},
+  "author_url": {type: String, default: ''},
   "thread_key": {type: String, required: true }
 });
 

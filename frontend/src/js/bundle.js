@@ -20,30 +20,37 @@ var _utils = require('./utils.js');
 
 var _utils2 = _interopRequireDefault(_utils);
 
+var _request = require('./request.js');
+
+var _request2 = _interopRequireDefault(_request);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-module.exports = new Vue({
+var main = new Vue({
   el: '.comment-widget',
   data: {
     comments_data: [{
-      author_url: 'wuchengkai.com',
-      author_avatar: 'http://q.qlogo.cn/qqapp/100229475/B5CA91B39BA23ABE80C306B5AD25FB04/100',
-      author_name: 'ckwu',
-      created_at: '2017-03-28T07:20:32.008Z',
-      updated_at: '2017-03-28T07:20:32.008Z',
-      message: '测试',
-      author_email: '486433545@qq.com',
-      post_id: '2efd3696-31ef-496a-bb28-62a33b52eb00',
-      author_id: '25607593-63d5-46f3-81aa-7154cd0d24c0',
-      thread_key: 'canvas-poster',
-      parents: ['52b489e9-e9be-4582-b58f-414e1927d6bd']
+      "_id": "58de82c1f9e12c0614ef416f",
+      "message": "1",
+      "author_name": "wck",
+      "thread_key": "canvas",
+      "author_email": "486433545@qq.com",
+      "post_id": "88d97e4b-373c-422f-9e6d-1f7071d04d48",
+      "author_id": "4ba97974-0c1b-44ed-8921-1c707dc5ba16",
+      "__v": 0,
+      "author_url": "",
+      "parents": [],
+      "ip": "::ffff:127.0.0.1",
+      "updated_at": "2017-03-31T16:20:24.664Z",
+      "created_at": "2017-03-31T16:20:24.664Z"
     }],
     reply: {
       message: '',
-      author_name: '',
+      author_name: 'wck',
       author_url: '',
-      thread_key: '',
-      author_avatar: ''
+      thread_key: 'canvas',
+      author_avatar: '',
+      author_email: '486433545@qq.com'
     }
   },
   computed: {
@@ -59,30 +66,55 @@ module.exports = new Vue({
     post: function post() {
       var _this = this;
 
-      this.reply.created_at = Date.now();
-      this.reply.updated_at = Date.now();
-      this.comments_data.push(JSON.parse(JSON.stringify(this.reply)));
-      setTimeout(function () {
-        _this.reply.message = '';
-      }, 0);
+      _request2.default.post(this.reply, function (res) {
+        console.log(res);
+        setTimeout(function () {
+          _this.reply.message = '';_request2.default.lists();
+        }, 0);
+      });
     }
   }
 });
 
-},{"./utils.js":4}],3:[function(require,module,exports){
+self.main = main;
+
+module.exports = main;
+
+},{"./request.js":3,"./utils.js":4}],3:[function(require,module,exports){
 'use strict';
+
+var _utils = require('./utils.js');
+
+var _utils2 = _interopRequireDefault(_utils);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = {
 	lists: function lists() {
-		fetch('http://127.0.0.1:3000/lists', { method: 'POST' }).then(function (res) {
+		fetch('http://127.0.0.1:3000/lists', {
+			method: 'POST',
+			headers: new Headers({ 'Content-Type': 'application/json' }),
+			body: JSON.stringify({ 'thread_key': 'canvas' })
+		}).then(function (res) {
 			return res.json();
-		}).then(function (data) {
-			console.log(data);
+		}).then(function (res) {
+			main.comments_data = res.data;
+		});
+	},
+	post: function post(params, cb) {
+		fetch('http://127.0.0.1:3000/post', {
+			method: 'POST',
+			headers: new Headers({ 'Content-Type': 'application/json' }),
+			body: JSON.stringify(params)
+		}).then(function (res) {
+			return res.json();
+		}).then(function (res) {
+			cb(res);
 		});
 	}
 };
 
-},{}],4:[function(require,module,exports){
+},{"./utils.js":4}],4:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -91,6 +123,9 @@ module.exports = {
       var d = new Date(timestring);
       return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
     } catch (e) {}
+  },
+  handleVueData: function handleVueData(data) {
+    return JSON.parse(JSON.stringify(data));
   }
 };
 
