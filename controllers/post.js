@@ -38,8 +38,8 @@ module.exports = ( params, ctx ) => {
       deliveryCommentReplyEmail( doc, PostsModel );
       resolve();
     }).catch((err)=>{
-      console.error( err );
-      ctx.body = result.fail(500, err.message.message, '');
+      console.error( err.errors[ Object.keys(err.errors)[0] ].message );
+      ctx.body = result.fail(500, err.errors[ Object.keys(err.errors)[0] ].message, '');
       resolve();
     });
   });
