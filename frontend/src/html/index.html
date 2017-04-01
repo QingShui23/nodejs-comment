@@ -117,10 +117,12 @@
       position: relative;
       border: 1px solid #ccc;
       border-bottom: none;
-      
       overflow: hidden;
       border-top-right-radius: 3px;
       border-top-left-radius: 3px;
+    }
+    .edit-comment-hide .textarea-wrapper {
+      border: none;
     }
     .textarea-wrapper textarea {
       box-shadow: none;
@@ -144,6 +146,9 @@
       width: 100%;
       box-shadow: 0 1px 0 rgba(255,255,255,0.6);
     }
+    .edit-comment-hide .post-options {
+      border-left: none;
+    }
     .post-options {
       position: relative;
       margin-right: 100px;
@@ -154,6 +159,9 @@
       border-bottom-left-radius: 3px;
       -webkit-border-bottom-left-radius: 3px;
       background: url(https://oiffqaiyz.qnssl.com/19c8e06f-3eb2-7978-b6d8-1bac037a1dbc.png) 0 -60px repeat-x;
+    }
+    .edit-comment-hide .post-button {
+      border-right: none;
     }
     .post-button {
       font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -219,11 +227,15 @@
         <div class="timeline-comment-header">
           <div class="timeline-comment-header-text">
             <img alt="" class="timeline-comment-avatar-m" :src="v.author_avatar">
-            <strong v-text="v.author_name"></strong> 发表于 <time v-text="v.created_at"></time>
+            <strong v-text="v.author_name"></strong> 
+            <template v-if="v.created_at === v.updated_at"> 发表于 </template>
+            <template v-else> 编辑于 </template>
+            <time v-text="v.updated_at"></time>
+            <a href="" @click.prevent="editComment(i)">编辑</a>
           </div>
         </div>
         <div class="edit-comment-hide">
-          <table class="d-block">
+          <table class="d-block" v-if="!v.editing_mode">
             <tbody class="d-block">
               <tr class="d-block">
                 <td class="d-block comment-body markdown-body markdown-format js-comment-body">
@@ -232,6 +244,7 @@
               </tr>
             </tbody>
           </table>
+          <reply-box :message="v.message" :post_id="v.post_id" v-if="v.editing_mode"></reply-box>
         </div>
       </div>
     </div>
@@ -240,16 +253,7 @@
       <a href="">
         <img src="http://q.qlogo.cn/qqapp/100229475/B5CA91B39BA23ABE80C306B5AD25FB04/100" alt="NEIL">
       </a>
-      <form v-on:submit.prevent="post">
-        <div class="textarea-wrapper">
-          <textarea required="" v-model.trim="reply.message" @keyup.enter.ctrl="post" placeholder="说点什么吧…"></textarea>
-        </div>
-        <div class="post-toolbar">
-          <div class="post-options">
-          </div>
-          <button class="post-button" type="submit">发布</button>
-        </div>
-      </form>
+      <reply-box></reply-box>
     </div>
   </div>
 
