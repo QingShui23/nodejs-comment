@@ -26,52 +26,52 @@ var _request2 = _interopRequireDefault(_request);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var main = new Vue({
-  el: '.comment-widget',
-  data: {
-    comments_data: [{
-      "_id": "58de82c1f9e12c0614ef416f",
-      "message": "1",
-      "author_name": "wck",
-      "thread_key": "canvas",
-      "author_email": "486433545@qq.com",
-      "post_id": "88d97e4b-373c-422f-9e6d-1f7071d04d48",
-      "author_id": "4ba97974-0c1b-44ed-8921-1c707dc5ba16",
-      "__v": 0,
-      "author_url": "",
-      "parents": [],
-      "ip": "::ffff:127.0.0.1",
-      "updated_at": "2017-03-31T16:20:24.664Z",
-      "created_at": "2017-03-31T16:20:24.664Z"
-    }],
-    reply: {
+Vue.component('reply-box', {
+  template: '\n    <form v-on:submit.prevent="post">\n      <div class="textarea-wrapper">\n        <textarea required="" v-model.trim="message" @keyup.enter.ctrl="post" placeholder="\u8BF4\u70B9\u4EC0\u4E48\u5427\u2026"></textarea>\n      </div>\n      <div class="post-toolbar">\n        <div class="post-options">\n        </div>\n        <button class="post-button" type="submit">\u53D1\u5E03</button>\n      </div>\n    </form>\n  ',
+  data: function data() {
+    return {
       message: '',
       author_name: 'wck',
       author_url: '',
       thread_key: 'canvas',
       author_avatar: '',
       author_email: '486433545@qq.com'
+    };
+  },
+  methods: {
+    post: function post() {
+      var _this = this;
+
+      Object.assign(this.$data, { message: this.message, post_id: this.post_id });
+      var params = _utils2.default.handleVueData(this.$data);
+      _request2.default.postOrAlter(params, function (res) {
+        setTimeout(function () {
+          _this.message = '';_request2.default.lists();
+        }, 0);
+      });
     }
+  },
+  props: ['message', 'post_id']
+});
+
+var main = new Vue({
+  el: '.comment-widget',
+  data: {
+    comments_data: []
   },
   computed: {
     comments: function comments() {
       return this.comments_data.map(function (v, i) {
         v.author_avatar = v.author_avatar || 'https://fe.ele.me/content/images/2016/12/6f061d950a7b0208c56357fe65d9f2d3572cc803.jpeg';
         v.created_at = _utils2.default.convertTimestamp2Date(v.created_at);
+        v.updated_at = _utils2.default.convertTimestamp2Date(v.updated_at);
         return v;
       });
     }
   },
   methods: {
-    post: function post() {
-      var _this = this;
-
-      _request2.default.post(this.reply, function (res) {
-        console.log(res);
-        setTimeout(function () {
-          _this.reply.message = '';_request2.default.lists();
-        }, 0);
-      });
+    editComment: function editComment(index) {
+      this.comments[index].editing_mode = !this.comments[index].editing_mode;
     }
   }
 });
@@ -98,11 +98,15 @@ module.exports = {
 		}).then(function (res) {
 			return res.json();
 		}).then(function (res) {
+			res.data.forEach(function (v, i) {
+				v.editing_mode = false;
+			});
 			main.comments_data = res.data;
 		});
 	},
-	post: function post(params, cb) {
-		fetch('http://127.0.0.1:3000/post', {
+	postOrAlter: function postOrAlter(params, cb) {
+		var path = params.post_id === undefined ? 'post' : 'alter';
+		fetch('http://127.0.0.1:3000/' + path, {
 			method: 'POST',
 			headers: new Headers({ 'Content-Type': 'application/json' }),
 			body: JSON.stringify(params)

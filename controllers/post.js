@@ -35,7 +35,7 @@ module.exports = ( params, ctx ) => {
     let entity = new PostsModel( params );
     entity.save().then((doc) => {
       ctx.body = result.success( doc );
-      deliveryCommentReplyEmail( doc, PostsModel );
+      // deliveryCommentReplyEmail( doc, PostsModel );
       resolve();
     }).catch((err)=>{
       console.error( err.errors[ Object.keys(err.errors)[0] ].message );
