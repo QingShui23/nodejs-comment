@@ -30,6 +30,7 @@
     "kcors": "^1.3.2",
     "koa": "^2.2.0",
     "koa-body": "^1.6.0",
-    "koa-cors": "^0.0.16"
+    "koa-cors": "^0.0.16",
+    "koa-static-server": "^1.0.0"
   }
 }
